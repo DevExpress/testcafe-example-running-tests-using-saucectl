@@ -29,12 +29,12 @@ suites:
     mode: docker
     browserName: "firefox"
     src:
-      - "tests/*.test.js"
+      - "tests/specs/*.spec.js"
   - name: "Firefox in sauce"
     mode: sauce
     browserName: "firefox"
     src:
-      - "tests/*.test.js"
+      - "tests/specs/*.spec.js"
     platformName: "Windows 10"
 
 # Controls what artifacts to fetch when the suite on Sauce Cloud has finished.
