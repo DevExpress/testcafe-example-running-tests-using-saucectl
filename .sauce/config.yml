@@ -23,7 +23,7 @@ suites:
   - name: "Chrome using global mode setting" # Since the suite doesn't specify the `mode`, it'll inherit the mode specified via `defaults.mode` (see line number 3 and 4 of this config file).
     browserName: "chrome"
     src:
-      - "tests/*.test.js" # test files glob
+      - "tests/specs/*.spec.js" # test files glob
     platformName: "mac 11.00" # Only relevant when running a test against the sauce cloud.
   - name: "Firefox in docker"
     mode: docker
