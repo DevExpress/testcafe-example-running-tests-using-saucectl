@@ -24,12 +24,6 @@ suites:
     browserName: "chrome"
     src:
       - "tests/specs/*.spec.js" # test files glob
-    platformName: "mac 11.00" # Only relevant when running a test against the sauce cloud.
-  - name: "Firefox in docker"
-    mode: docker
-    browserName: "firefox"
-    src:
-      - "tests/specs/*.spec.js"
   - name: "Firefox in sauce"
     mode: sauce
     browserName: "firefox"
