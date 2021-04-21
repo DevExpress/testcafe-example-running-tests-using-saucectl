@@ -1,19 +1,46 @@
-
-apiVersion: v1
-metadata:
-  name: TestCafe with Sauce Testrunner Toolkit
-  tags:
-    - e2e
-    - release team
-    - other tag
-  build: Release TestCafe
-files:
-  - ./tests/
-suites:
-- name: Tests
-  match: tests/(.*)+\.(spec|test)\.[jt]sx?
-image:
-  base: saucelabs/stt-testcafe-node
-  version: latest
+apiVersion: v1alpha
+kind: testcafe
+defaults:
+  mode: sauce
 sauce:
   region: eu-central-1
+  concurrency: 2 # Controls how many suites are executed at the same time.
+  metadata:
+    name: saucectl testcafe example
+    tags:
+      - e2e
+      - release team
+      - other tag
+    build: Release $CI_COMMIT_SHORT_SHA
+docker:
+  # Affects how test files are transferred to the docker container when using the docker mode.
+  fileTransfer: copy # Choose between mount|copy.
+testcafe:
+  version: 1.11.0
+# Controls what files are available in the context of a test run (unless explicitly excluded by .sauceignore).
+rootDir: ./
+suites:
+  - name: "Chrome using global mode setting" # Since the suite doesn't specify the `mode`, it'll inherit the mode specified via `defaults.mode` (see line number 3 and 4 of this config file).
+    browserName: "chrome"
+    src:
+      - "tests/*.test.js" # test files glob
+    platformName: "mac 11.00" # Only relevant when running a test against the sauce cloud.
+  - name: "Firefox in docker"
+    mode: docker
+    browserName: "firefox"
+    src:
+      - "tests/*.test.js"
+  - name: "Firefox in sauce"
+    mode: sauce
+    browserName: "firefox"
+    src:
+      - "tests/*.test.js"
+    platformName: "Windows 10"
+
+# Controls what artifacts to fetch when the suite on Sauce Cloud has finished.
+artifacts:
+  download:
+    when: always
+    match:
+      - console.log
+    directory: ./artifacts/
