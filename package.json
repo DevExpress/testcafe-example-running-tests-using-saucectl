@@ -14,6 +14,6 @@
     "eslint": "^7.4.0",
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-testcafe": "^0.2.1",
-    "saucectl": "^0.38.2"
+    "saucectl": "^0.154.0"
   }
 }
